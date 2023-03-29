@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+button {
+    width: 150px;
+    height: 150px;
+    border: 5px solid purple;
+    border-radius: 20px;
+    color: grey;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.results {
+    font-size: 20px;
+    text-align: center;
+}
+
+.header, .footer { 
+    text-align: center;
+    height: 100px;
+    padding: 0px;
+    font-size: 60px;
+    color: darkslategray;
+    font-weight: 500;
+}

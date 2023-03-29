@@ -1,3 +1,27 @@
+
+let playerScore = 0;
+let compScore = 0;
+
+const buttons = document.querySelectorAll('button');
+const results = document.querySelector('.results');
+const gameResult = document.createElement('p');
+const score = document.createElement('p');
+
+gameResult.textContent = 'Click any button!';
+
+results.appendChild(gameResult);
+
+buttons.forEach((button)=> {
+
+    button.addEventListener('click', () => {
+
+        playRound(button.id)
+        
+    });
+
+});
+
+
 //Generate and return random choice
 function getComputerChoice() {
     let ranNum = Math.floor(Math.random()*3) + 1;
@@ -19,38 +43,73 @@ function getComputerChoice() {
 
 }
 
-//Request and return user choice
-function getPlayerChoice() {
-    
-    let answerCheck = true;
+//Calculate result of single round
+function playRound(buttonId) {
 
-    while (answerCheck) {
-        answer = prompt("Please enter Rock, Paper, or Scissors:");
-        answerLow = answer.toLowerCase();
-
-        if (answerLow === "rock" || answerLow === "paper" || answerLow === "scissors") {
-            answerCheck = false
-        }
-    }
-    return answer;
-}
-
-//Calculate result based on choices for a single round
-function playRound(playerSelection, computerSelection) {
+    playerSelection = buttonId;
+    computerSelection = getComputerChoice();
 
     playerSelectionLow = playerSelection.toLowerCase();
     computerSelectionLow = computerSelection.toLowerCase();
 
+
     if (playerSelectionLow === computerSelectionLow) {
-        return "It's a tie!";
+
     }
     else if (playerSelectionLow === "rock" && computerSelectionLow === "paper" || playerSelectionLow === "scissors" && computerSelectionLow === "rock" || playerSelectionLow === "paper" && computerSelectionLow === "scissors") {
-        return `You Lose! ${computerSelection} beats ${playerSelection}.`
+        compScore += 1;
     }
     else {
-        return `You Win! ${playerSelection} beats ${computerSelection}.`
+        playerScore += 1;
     }
+
+    checkResults();
+
 }
+
+// Determine if the game is over 
+function checkResults() {
+
+    if(playerScore === 5) {
+        declareWinner('Player');
+        return;
+
+    } else if (compScore === 5) {
+        declareWinner('Computer');
+        return;
+    }
+
+    gameResult.textContent = '';
+    score.textContent = `Computer: ${compScore}  You: ${playerScore}`;
+    results.appendChild(score);
+
+}
+
+
+//Declare a winner
+function declareWinner (winner) {
+
+    gameResult.textContent = `${winner} wins the game!`;
+    score.textContent = '';
+    compScore = 0;
+    playerScore = 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Calculate and return the results of 5 rounds
 function game(){
